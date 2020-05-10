@@ -1,1 +1,1 @@
-# lois2.github.io
+# lois lab 2
