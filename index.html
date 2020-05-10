@@ -1,1 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Лабораторная работа №2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<script src="script.js"></script>
+<body>
+    <div align="center">
+        Формула логики высказываний:
+        <form>
+            <input type="text" id="formula" placeholder="Введите формулу..." required>
+            <input type="button" id="button" value="Проверить" onclick="run()">
+        </form>
+        <span id="answer1"></span>
 
+    <div id="container" hidden>
+        <span id="formulaLabel"></span>
+        Таблица истинности:
+        <table id="table" border="1" style="text-align: center;"></table>
+
+        <br>
+        Ответ: <span id="answer2"></span>
+    </div>
+</div>
+</body>
+</html>
