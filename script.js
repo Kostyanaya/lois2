@@ -14,6 +14,11 @@ const ANSWER_2_ID = "answer2";
 const DISSONANT_FORMULA = "Формула является противоречивой";
 const NON_DISSONANT_FORMULA = "Формула не является противоречивой";
 
+const DISSONANT_FORMULA_VAR_1 = "Формула является противоречивой, вы правы";
+const NON_DISSONANT_FORMULA_VAR_1 = "Формула не является противоречивой, вы правы";
+const DISSONANT_FORMULA_VAR_2 = "Формула является противоречивой, вы не правы";
+const NON_DISSONANT_FORMULA_VAR_2 = "Формула не является противоречивой, вы не правы";
+
 const NEGATION = "!";
 const CONJUNCTION = "&";
 const DISJUNCTION = "|";
@@ -22,25 +27,28 @@ const EQUIVALENCE = "~";
 
 let countAnswer = 0;
 let n = 1;
+let testAnswer;
+
 
 function run() {
     let formula = document.getElementById(FORMULA_ID).value;
+
     checkFormula(formula);
     document.getElementById(CONTAINER_ID).hidden = true;
 
     let obj = calculateTableTruth(formula);
 
-    let answer2 = document.getElementById(ANSWER_2_ID);
-    if (countAnswer == n) {
-        answer2.innerHTML = DISSONANT_FORMULA;
-    } else {
-        answer2.innerHTML = NON_DISSONANT_FORMULA;
-    }
 
-    if (obj != null && checkWithRegularExpressionFormula(formula)) {
-        printTableTruth(obj.table, obj.symbolSize);
-        document.getElementById(CONTAINER_ID).hidden = false;
-    }
+        if (obj != null && checkWithRegularExpressionFormula(formula)) {
+            printTableTruth(obj.table, obj.symbolSize);
+            document.getElementById(CONTAINER_ID).hidden = false;
+            let answer2 = document.getElementById(ANSWER_2_ID);
+            answer2.innerHTML = '';
+            testAnswer = 2;
+        }
+
+
+
 
 }
 
@@ -263,6 +271,7 @@ function printTableTruth(table, symbolSize) {
 
     let tableElement = document.getElementById(TABLE_ID);
     tableElement.innerHTML = html;
+
 }
 
 function calculateInputFormulaParameters(index, symbolSize) {
@@ -366,4 +375,44 @@ function calculateEquivalence(subFormula) {
     } else {
         return 0;
     }
+}
+
+
+function test(obj) {
+    if (obj.id == "buttonYes"){
+        testAnswer = 1;
+    } else if (obj.id == "buttonNo") {
+        testAnswer = 0;
+    }
+    else if (obj.id == "buttonShowAnswer") {
+        testAnswer = 3;
+    }
+
+    let answer2 = document.getElementById(ANSWER_2_ID);
+
+    if (testAnswer == 1 || testAnswer == 0){
+        if (countAnswer == n && testAnswer == 1) {
+            answer2.innerHTML = DISSONANT_FORMULA_VAR_1;
+            testAnswer = 2;
+        } else if (countAnswer == n && testAnswer == 0) {
+            answer2.innerHTML = DISSONANT_FORMULA_VAR_2;
+            testAnswer = 2;
+        } else if (countAnswer != n && testAnswer == 1) {
+            answer2.innerHTML = NON_DISSONANT_FORMULA_VAR_2;
+            testAnswer = 2;
+        } else if (countAnswer != n && testAnswer == 0) {
+            answer2.innerHTML = NON_DISSONANT_FORMULA_VAR_1;
+            testAnswer = 2;
+        }
+
+    }
+    else {
+        if (countAnswer == n && testAnswer == 3) {
+            answer2.innerHTML = DISSONANT_FORMULA;
+        } else if ((countAnswer != n && testAnswer == 3)){
+            answer2.innerHTML = NON_DISSONANT_FORMULA;
+        }
+    }
+
+
 }

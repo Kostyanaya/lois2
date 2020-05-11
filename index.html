@@ -11,9 +11,16 @@
         Формула логики высказываний:
         <form>
             <input type="text" id="formula" placeholder="Введите формулу..." required>
-            <input type="button" id="button" value="Проверить" onclick="run()">
+            <input type="button" id="button" value="Построить таблицу" onclick="run()">
         </form>
         <span id="answer1"></span>
+
+        <br>
+        Является ли эта формула противоречивой?
+        <button id="buttonYes" onclick="test(this)"> Да </button>
+        <button id="buttonNo" onclick="test(this)"> Нет </button>
+        <button id="buttonShowAnswer" onclick="test(this)"> Показать ответ </button>
+
 
     <div id="container" hidden>
         <span id="formulaLabel"></span>
@@ -23,6 +30,8 @@
         <br>
         Ответ: <span id="answer2"></span>
     </div>
+
+
 </div>
 </body>
 </html>
